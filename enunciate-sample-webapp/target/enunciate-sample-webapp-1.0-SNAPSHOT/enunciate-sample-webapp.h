@@ -7,37 +7,17 @@
 #define DEF_ENUNCIATE_SAMPLE_WEBAPPMODELPerson_H
 
 /**
- * (no documentation provided)
+ *  @author Ryan Heaton
  */
 @interface ENUNCIATE_SAMPLE_WEBAPPMODELPerson : NSObject <EnunciateXML>
 {
   @private
-    ENUNCIATE_SAMPLE_WEBAPPMODELName *_name;
-    NSString *_email;
     NSString *_identifier;
+    NSString *_email;
     NSString *_alias;
+    ENUNCIATE_SAMPLE_WEBAPPMODELName *_name;
     NSData *_picture;
 }
-
-/**
- * (no documentation provided)
- */
-- (ENUNCIATE_SAMPLE_WEBAPPMODELName *) name;
-
-/**
- * (no documentation provided)
- */
-- (void) setName: (ENUNCIATE_SAMPLE_WEBAPPMODELName *) newName;
-
-/**
- * (no documentation provided)
- */
-- (NSString *) email;
-
-/**
- * (no documentation provided)
- */
-- (void) setEmail: (NSString *) newEmail;
 
 /**
  * (no documentation provided)
@@ -52,12 +32,32 @@
 /**
  * (no documentation provided)
  */
+- (NSString *) email;
+
+/**
+ * (no documentation provided)
+ */
+- (void) setEmail: (NSString *) newEmail;
+
+/**
+ * (no documentation provided)
+ */
 - (NSString *) alias;
 
 /**
  * (no documentation provided)
  */
 - (void) setAlias: (NSString *) newAlias;
+
+/**
+ * (no documentation provided)
+ */
+- (ENUNCIATE_SAMPLE_WEBAPPMODELName *) name;
+
+/**
+ * (no documentation provided)
+ */
+- (void) setName: (ENUNCIATE_SAMPLE_WEBAPPMODELName *) newName;
 
 /**
  * (no documentation provided)
@@ -75,43 +75,34 @@
 #define DEF_ENUNCIATE_SAMPLE_WEBAPPMODELName_H
 
 /**
- * (no documentation provided)
+ *  A name of a persona.
+ * 
+ *  @author Ryan Heaton
  */
 @interface ENUNCIATE_SAMPLE_WEBAPPMODELName : NSObject
 {
   @private
     NSString *_givenName;
-    NSString *_fullName;
     NSString *_surname;
 }
 
 /**
- * (no documentation provided)
+ * The given name.
  */
 - (NSString *) givenName;
 
 /**
- * (no documentation provided)
+ * The given name.
  */
 - (void) setGivenName: (NSString *) newGivenName;
 
 /**
- * (no documentation provided)
- */
-- (NSString *) fullName;
-
-/**
- * (no documentation provided)
- */
-- (void) setFullName: (NSString *) newFullName;
-
-/**
- * (no documentation provided)
+ * The surname.
  */
 - (NSString *) surname;
 
 /**
- * (no documentation provided)
+ * The surname.
  */
 - (void) setSurname: (NSString *) newSurname;
 @end /* interface ENUNCIATE_SAMPLE_WEBAPPMODELName */

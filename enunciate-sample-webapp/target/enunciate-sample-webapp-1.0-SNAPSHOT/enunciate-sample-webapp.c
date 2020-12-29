@@ -3,23 +3,20 @@
 #define DEF_enunciate_sample_webapp_model_name_H
 
 /**
- * (no documentation provided)
+ *  A name of a persona.
+ * 
+ *  @author Ryan Heaton
  */
 struct enunciate_sample_webapp_model_name {
 
 
   /**
-   * (no documentation provided)
+   * The given name.
    */
   xmlChar *givenName;
 
   /**
-   * (no documentation provided)
-   */
-  xmlChar *fullName;
-
-  /**
-   * (no documentation provided)
+   * The surname.
    */
   xmlChar *surname;
 };
@@ -53,20 +50,10 @@ static void freeModelNameType(struct enunciate_sample_webapp_model_name *_name);
 #define DEF_enunciate_sample_webapp_model_person_H
 
 /**
- * (no documentation provided)
+ *  @author Ryan Heaton
  */
 struct enunciate_sample_webapp_model_person {
 
-
-  /**
-   * (no documentation provided)
-   */
-  struct enunciate_sample_webapp_model_name *name;
-
-  /**
-   * (no documentation provided)
-   */
-  xmlChar *email;
 
   /**
    * (no documentation provided)
@@ -76,7 +63,17 @@ struct enunciate_sample_webapp_model_person {
   /**
    * (no documentation provided)
    */
+  xmlChar *email;
+
+  /**
+   * (no documentation provided)
+   */
   xmlChar *alias;
+
+  /**
+   * (no documentation provided)
+   */
+  struct enunciate_sample_webapp_model_name *name;
 
   /**
    * (no documentation provided)
@@ -226,27 +223,6 @@ static struct enunciate_sample_webapp_model_name *xmlTextReaderReadModelNameType
         status = xmlTextReaderAdvanceToNextStartOrEndElement(reader);
       }
       else if (xmlTextReaderNodeType(reader) == XML_READER_TYPE_ELEMENT
-        && xmlStrcmp(BAD_CAST "fullName", xmlTextReaderConstLocalName(reader)) == 0
-        && xmlTextReaderConstNamespaceUri(reader) == NULL) {
-
-#if DEBUG_ENUNCIATE > 1
-        printf("Attempting to read choice {}fullName of type {http://www.w3.org/2001/XMLSchema}string.\n");
-#endif
-        _child_accessor = xmlTextReaderReadXsStringType(reader);
-        if (_child_accessor == NULL) {
-#if DEBUG_ENUNCIATE
-          printf("Failed to read choice {}fullName of type {http://www.w3.org/2001/XMLSchema}string.\n");
-#endif
-          //panic: unable to read the child element for some reason.
-          freeModelNameType(_name);
-          free(_name);
-          return NULL;
-        }
-
-        _name->fullName = ((xmlChar*)_child_accessor);
-        status = xmlTextReaderAdvanceToNextStartOrEndElement(reader);
-      }
-      else if (xmlTextReaderNodeType(reader) == XML_READER_TYPE_ELEMENT
         && xmlStrcmp(BAD_CAST "surname", xmlTextReaderConstLocalName(reader)) == 0
         && xmlTextReaderConstNamespaceUri(reader) == NULL) {
 
@@ -324,36 +300,6 @@ static int xmlTextWriterWriteModelNameType(xmlTextWriterPtr writer, struct enunc
     }
     totalBytes += status;
   }
-  if (_name->fullName != NULL) {
-    status = xmlTextWriterStartElementNS(writer, NULL, BAD_CAST "fullName", NULL);
-    if (status < 0) {
-#if DEBUG_ENUNCIATE
-      printf("Failed to write start element {}fullName. status: %i\n", status);
-#endif
-      return status;
-    }
-    totalBytes += status;
-#if DEBUG_ENUNCIATE > 1
-    printf("writing type {http://www.w3.org/2001/XMLSchema}string for element {}fullName...\n");
-#endif
-    status = xmlTextWriterWriteXsStringType(writer, (_name->fullName));
-    if (status < 0) {
-#if DEBUG_ENUNCIATE
-      printf("Failed to write type {http://www.w3.org/2001/XMLSchema}string for element {}fullName. status: %i\n", status);
-#endif
-      return status;
-    }
-    totalBytes += status;
-
-    status = xmlTextWriterEndElement(writer);
-    if (status < 0) {
-#if DEBUG_ENUNCIATE
-      printf("Failed to write end element {}fullName. status: %i\n", status);
-#endif
-      return status;
-    }
-    totalBytes += status;
-  }
   if (_name->surname != NULL) {
     status = xmlTextWriterStartElementNS(writer, NULL, BAD_CAST "surname", NULL);
     if (status < 0) {
@@ -404,16 +350,6 @@ static void freeModelNameType(struct enunciate_sample_webapp_model_name *_name) 
     printf("Freeing accessor givenName of type enunciate_sample_webapp_model_name...\n");
 #endif
     free(_name->givenName);
-  }
-  if (_name->fullName != NULL) {
-#if DEBUG_ENUNCIATE > 1
-    printf("Freeing type of accessor fullName of type enunciate_sample_webapp_model_name...\n");
-#endif
-    freeXsStringType(_name->fullName);
-#if DEBUG_ENUNCIATE > 1
-    printf("Freeing accessor fullName of type enunciate_sample_webapp_model_name...\n");
-#endif
-    free(_name->fullName);
   }
   if (_name->surname != NULL) {
 #if DEBUG_ENUNCIATE > 1
@@ -603,16 +539,16 @@ static struct enunciate_sample_webapp_model_person *xmlTextReaderReadModelPerson
         return NULL;
       }
       else if (xmlTextReaderNodeType(reader) == XML_READER_TYPE_ELEMENT
-        && xmlStrcmp(BAD_CAST "name", xmlTextReaderConstLocalName(reader)) == 0
+        && xmlStrcmp(BAD_CAST "id", xmlTextReaderConstLocalName(reader)) == 0
         && xmlTextReaderConstNamespaceUri(reader) == NULL) {
 
 #if DEBUG_ENUNCIATE > 1
-        printf("Attempting to read choice {}name of type {http://webcohesion.com/enunciate/samples/model/}name.\n");
+        printf("Attempting to read choice {}id of type {http://www.w3.org/2001/XMLSchema}string.\n");
 #endif
-        _child_accessor = xmlTextReaderReadModelNameType(reader);
+        _child_accessor = xmlTextReaderReadXsStringType(reader);
         if (_child_accessor == NULL) {
 #if DEBUG_ENUNCIATE
-          printf("Failed to read choice {}name of type {http://webcohesion.com/enunciate/samples/model/}name.\n");
+          printf("Failed to read choice {}id of type {http://www.w3.org/2001/XMLSchema}string.\n");
 #endif
           //panic: unable to read the child element for some reason.
           freeModelPersonType(_person);
@@ -620,7 +556,7 @@ static struct enunciate_sample_webapp_model_person *xmlTextReaderReadModelPerson
           return NULL;
         }
 
-        _person->name = ((struct enunciate_sample_webapp_model_name*)_child_accessor);
+        _person->id = ((xmlChar*)_child_accessor);
         status = xmlTextReaderAdvanceToNextStartOrEndElement(reader);
       }
       else if (xmlTextReaderNodeType(reader) == XML_READER_TYPE_ELEMENT
@@ -645,27 +581,6 @@ static struct enunciate_sample_webapp_model_person *xmlTextReaderReadModelPerson
         status = xmlTextReaderAdvanceToNextStartOrEndElement(reader);
       }
       else if (xmlTextReaderNodeType(reader) == XML_READER_TYPE_ELEMENT
-        && xmlStrcmp(BAD_CAST "id", xmlTextReaderConstLocalName(reader)) == 0
-        && xmlTextReaderConstNamespaceUri(reader) == NULL) {
-
-#if DEBUG_ENUNCIATE > 1
-        printf("Attempting to read choice {}id of type {http://www.w3.org/2001/XMLSchema}string.\n");
-#endif
-        _child_accessor = xmlTextReaderReadXsStringType(reader);
-        if (_child_accessor == NULL) {
-#if DEBUG_ENUNCIATE
-          printf("Failed to read choice {}id of type {http://www.w3.org/2001/XMLSchema}string.\n");
-#endif
-          //panic: unable to read the child element for some reason.
-          freeModelPersonType(_person);
-          free(_person);
-          return NULL;
-        }
-
-        _person->id = ((xmlChar*)_child_accessor);
-        status = xmlTextReaderAdvanceToNextStartOrEndElement(reader);
-      }
-      else if (xmlTextReaderNodeType(reader) == XML_READER_TYPE_ELEMENT
         && xmlStrcmp(BAD_CAST "alias", xmlTextReaderConstLocalName(reader)) == 0
         && xmlTextReaderConstNamespaceUri(reader) == NULL) {
 
@@ -684,6 +599,27 @@ static struct enunciate_sample_webapp_model_person *xmlTextReaderReadModelPerson
         }
 
         _person->alias = ((xmlChar*)_child_accessor);
+        status = xmlTextReaderAdvanceToNextStartOrEndElement(reader);
+      }
+      else if (xmlTextReaderNodeType(reader) == XML_READER_TYPE_ELEMENT
+        && xmlStrcmp(BAD_CAST "name", xmlTextReaderConstLocalName(reader)) == 0
+        && xmlTextReaderConstNamespaceUri(reader) == NULL) {
+
+#if DEBUG_ENUNCIATE > 1
+        printf("Attempting to read choice {}name of type {http://webcohesion.com/enunciate/samples/model/}name.\n");
+#endif
+        _child_accessor = xmlTextReaderReadModelNameType(reader);
+        if (_child_accessor == NULL) {
+#if DEBUG_ENUNCIATE
+          printf("Failed to read choice {}name of type {http://webcohesion.com/enunciate/samples/model/}name.\n");
+#endif
+          //panic: unable to read the child element for some reason.
+          freeModelPersonType(_person);
+          free(_person);
+          return NULL;
+        }
+
+        _person->name = ((struct enunciate_sample_webapp_model_name*)_child_accessor);
         status = xmlTextReaderAdvanceToNextStartOrEndElement(reader);
       }
       else if (xmlTextReaderNodeType(reader) == XML_READER_TYPE_ELEMENT
@@ -725,22 +661,22 @@ static struct enunciate_sample_webapp_model_person *xmlTextReaderReadModelPerson
 static int xmlTextWriterWriteModelPersonType(xmlTextWriterPtr writer, struct enunciate_sample_webapp_model_person *_person) {
   int status, totalBytes = 0, i;
   xmlChar *binaryData;
-  if (_person->name != NULL) {
-    status = xmlTextWriterStartElementNS(writer, NULL, BAD_CAST "name", NULL);
+  if (_person->id != NULL) {
+    status = xmlTextWriterStartElementNS(writer, NULL, BAD_CAST "id", NULL);
     if (status < 0) {
 #if DEBUG_ENUNCIATE
-      printf("Failed to write start element {}name. status: %i\n", status);
+      printf("Failed to write start element {}id. status: %i\n", status);
 #endif
       return status;
     }
     totalBytes += status;
 #if DEBUG_ENUNCIATE > 1
-    printf("writing type {http://webcohesion.com/enunciate/samples/model/}name for element {}name...\n");
+    printf("writing type {http://www.w3.org/2001/XMLSchema}string for element {}id...\n");
 #endif
-    status = xmlTextWriterWriteModelNameType(writer, (_person->name));
+    status = xmlTextWriterWriteXsStringType(writer, (_person->id));
     if (status < 0) {
 #if DEBUG_ENUNCIATE
-      printf("Failed to write type {http://webcohesion.com/enunciate/samples/model/}name for element {}name. status: %i\n", status);
+      printf("Failed to write type {http://www.w3.org/2001/XMLSchema}string for element {}id. status: %i\n", status);
 #endif
       return status;
     }
@@ -749,7 +685,7 @@ static int xmlTextWriterWriteModelPersonType(xmlTextWriterPtr writer, struct enu
     status = xmlTextWriterEndElement(writer);
     if (status < 0) {
 #if DEBUG_ENUNCIATE
-      printf("Failed to write end element {}name. status: %i\n", status);
+      printf("Failed to write end element {}id. status: %i\n", status);
 #endif
       return status;
     }
@@ -785,36 +721,6 @@ static int xmlTextWriterWriteModelPersonType(xmlTextWriterPtr writer, struct enu
     }
     totalBytes += status;
   }
-  if (_person->id != NULL) {
-    status = xmlTextWriterStartElementNS(writer, NULL, BAD_CAST "id", NULL);
-    if (status < 0) {
-#if DEBUG_ENUNCIATE
-      printf("Failed to write start element {}id. status: %i\n", status);
-#endif
-      return status;
-    }
-    totalBytes += status;
-#if DEBUG_ENUNCIATE > 1
-    printf("writing type {http://www.w3.org/2001/XMLSchema}string for element {}id...\n");
-#endif
-    status = xmlTextWriterWriteXsStringType(writer, (_person->id));
-    if (status < 0) {
-#if DEBUG_ENUNCIATE
-      printf("Failed to write type {http://www.w3.org/2001/XMLSchema}string for element {}id. status: %i\n", status);
-#endif
-      return status;
-    }
-    totalBytes += status;
-
-    status = xmlTextWriterEndElement(writer);
-    if (status < 0) {
-#if DEBUG_ENUNCIATE
-      printf("Failed to write end element {}id. status: %i\n", status);
-#endif
-      return status;
-    }
-    totalBytes += status;
-  }
   if (_person->alias != NULL) {
     status = xmlTextWriterStartElementNS(writer, NULL, BAD_CAST "alias", NULL);
     if (status < 0) {
@@ -840,6 +746,36 @@ static int xmlTextWriterWriteModelPersonType(xmlTextWriterPtr writer, struct enu
     if (status < 0) {
 #if DEBUG_ENUNCIATE
       printf("Failed to write end element {}alias. status: %i\n", status);
+#endif
+      return status;
+    }
+    totalBytes += status;
+  }
+  if (_person->name != NULL) {
+    status = xmlTextWriterStartElementNS(writer, NULL, BAD_CAST "name", NULL);
+    if (status < 0) {
+#if DEBUG_ENUNCIATE
+      printf("Failed to write start element {}name. status: %i\n", status);
+#endif
+      return status;
+    }
+    totalBytes += status;
+#if DEBUG_ENUNCIATE > 1
+    printf("writing type {http://webcohesion.com/enunciate/samples/model/}name for element {}name...\n");
+#endif
+    status = xmlTextWriterWriteModelNameType(writer, (_person->name));
+    if (status < 0) {
+#if DEBUG_ENUNCIATE
+      printf("Failed to write type {http://webcohesion.com/enunciate/samples/model/}name for element {}name. status: %i\n", status);
+#endif
+      return status;
+    }
+    totalBytes += status;
+
+    status = xmlTextWriterEndElement(writer);
+    if (status < 0) {
+#if DEBUG_ENUNCIATE
+      printf("Failed to write end element {}name. status: %i\n", status);
 #endif
       return status;
     }
@@ -889,15 +825,15 @@ static int xmlTextWriterWriteModelPersonType(xmlTextWriterPtr writer, struct enu
  */
 static void freeModelPersonType(struct enunciate_sample_webapp_model_person *_person) {
   int i;
-  if (_person->name != NULL) {
+  if (_person->id != NULL) {
 #if DEBUG_ENUNCIATE > 1
-    printf("Freeing type of accessor name of type enunciate_sample_webapp_model_person...\n");
+    printf("Freeing type of accessor id of type enunciate_sample_webapp_model_person...\n");
 #endif
-    freeModelNameType(_person->name);
+    freeXsStringType(_person->id);
 #if DEBUG_ENUNCIATE > 1
-    printf("Freeing accessor name of type enunciate_sample_webapp_model_person...\n");
+    printf("Freeing accessor id of type enunciate_sample_webapp_model_person...\n");
 #endif
-    free(_person->name);
+    free(_person->id);
   }
   if (_person->email != NULL) {
 #if DEBUG_ENUNCIATE > 1
@@ -909,16 +845,6 @@ static void freeModelPersonType(struct enunciate_sample_webapp_model_person *_pe
 #endif
     free(_person->email);
   }
-  if (_person->id != NULL) {
-#if DEBUG_ENUNCIATE > 1
-    printf("Freeing type of accessor id of type enunciate_sample_webapp_model_person...\n");
-#endif
-    freeXsStringType(_person->id);
-#if DEBUG_ENUNCIATE > 1
-    printf("Freeing accessor id of type enunciate_sample_webapp_model_person...\n");
-#endif
-    free(_person->id);
-  }
   if (_person->alias != NULL) {
 #if DEBUG_ENUNCIATE > 1
     printf("Freeing type of accessor alias of type enunciate_sample_webapp_model_person...\n");
@@ -928,6 +854,16 @@ static void freeModelPersonType(struct enunciate_sample_webapp_model_person *_pe
     printf("Freeing accessor alias of type enunciate_sample_webapp_model_person...\n");
 #endif
     free(_person->alias);
+  }
+  if (_person->name != NULL) {
+#if DEBUG_ENUNCIATE > 1
+    printf("Freeing type of accessor name of type enunciate_sample_webapp_model_person...\n");
+#endif
+    freeModelNameType(_person->name);
+#if DEBUG_ENUNCIATE > 1
+    printf("Freeing accessor name of type enunciate_sample_webapp_model_person...\n");
+#endif
+    free(_person->name);
   }
   if (_person->picture != NULL) {
 #if DEBUG_ENUNCIATE > 1

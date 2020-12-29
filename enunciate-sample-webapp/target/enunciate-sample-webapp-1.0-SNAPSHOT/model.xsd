@@ -6,25 +6,38 @@
 
   <xs:element name="person" type="model:person"/>
 <xs:complexType name="name">
+  <xs:annotation>
+    <xs:documentation>
+      <![CDATA[A name of a persona.]]>
+    </xs:documentation>
+  </xs:annotation>
        <xs:sequence>
               <xs:element name="givenName" type="xs:string" minOccurs="0">
-              </xs:element>
-              <xs:element name="fullName" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>
+                  <![CDATA[The given name.]]>
+                </xs:documentation>
+              </xs:annotation>
               </xs:element>
               <xs:element name="surname" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>
+                  <![CDATA[The surname.]]>
+                </xs:documentation>
+              </xs:annotation>
               </xs:element>
       </xs:sequence>
 </xs:complexType>
 
 <xs:complexType name="person">
        <xs:sequence>
-              <xs:element name="name" type="model:name" minOccurs="0">
+              <xs:element name="id" type="xs:string" minOccurs="0">
               </xs:element>
               <xs:element name="email" type="xs:string" minOccurs="0">
               </xs:element>
-              <xs:element name="id" type="xs:string" minOccurs="0">
-              </xs:element>
               <xs:element name="alias" type="xs:string" minOccurs="0">
+              </xs:element>
+              <xs:element name="name" type="model:name" minOccurs="0">
               </xs:element>
               <xs:element name="picture" type="xs:base64Binary" minOccurs="0">
               </xs:element>

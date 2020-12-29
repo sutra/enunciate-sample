@@ -89,24 +89,24 @@ module Model
   class Person 
 
     # (no documentation provided)
+    attr_accessor :id
+    # (no documentation provided)
     attr_accessor :email
     # (no documentation provided)
-    attr_accessor :picture
+    attr_accessor :alias
     # (no documentation provided)
     attr_accessor :name
     # (no documentation provided)
-    attr_accessor :id
-    # (no documentation provided)
-    attr_accessor :alias
+    attr_accessor :picture
 
     # the json hash for this Person
     def to_jaxb_json_hash
       _h = {}
-      _h['email'] = email.to_jaxb_json_hash unless email.nil?
-      _h['picture'] = picture.to_jaxb_json_hash unless picture.nil?
-      _h['name'] = name.to_jaxb_json_hash unless name.nil?
       _h['id'] = id.to_jaxb_json_hash unless id.nil?
+      _h['email'] = email.to_jaxb_json_hash unless email.nil?
       _h['alias'] = alias.to_jaxb_json_hash unless alias.nil?
+      _h['name'] = name.to_jaxb_json_hash unless name.nil?
+      _h['picture'] = picture.to_jaxb_json_hash unless picture.nil?
       return _h
     end
 
@@ -117,6 +117,25 @@ module Model
 
     #initializes this Person with a json hash
     def init_jaxb_json_hash(_o)
+        if !_o['id'].nil?
+          _oa = _o['id']
+            if(_oa.is_a? Hash)
+              @id = EnunciateHelpers::LAMB_CLASS_AWARE.call(_oa) if _oa['@class']
+              @id =  String.from_json(_oa) unless _oa['@class']
+            elsif (_oa.is_a? Array)
+              #an array(of hashes hopefully) or scalar
+              @id = Array.new
+              _oa.each { | _item | 
+                 if ((_item.nil? || _item['@class'].nil?)rescue true)
+                   @id.push String.from_json(_item)
+                 else
+                   @id.push EnunciateHelpers::LAMB_CLASS_AWARE.call(_item)
+                 end
+               }
+            else
+                @id = _oa
+            end
+          end
         if !_o['email'].nil?
           _oa = _o['email']
             if(_oa.is_a? Hash)
@@ -136,23 +155,23 @@ module Model
                 @email = _oa
             end
           end
-        if !_o['picture'].nil?
-          _oa = _o['picture']
+        if !_o['alias'].nil?
+          _oa = _o['alias']
             if(_oa.is_a? Hash)
-              @picture = EnunciateHelpers::LAMB_CLASS_AWARE.call(_oa) if _oa['@class']
-              @picture =  String.from_json(_oa) unless _oa['@class']
+              @alias = EnunciateHelpers::LAMB_CLASS_AWARE.call(_oa) if _oa['@class']
+              @alias =  String.from_json(_oa) unless _oa['@class']
             elsif (_oa.is_a? Array)
               #an array(of hashes hopefully) or scalar
-              @picture = Array.new
+              @alias = Array.new
               _oa.each { | _item | 
                  if ((_item.nil? || _item['@class'].nil?)rescue true)
-                   @picture.push String.from_json(_item)
+                   @alias.push String.from_json(_item)
                  else
-                   @picture.push EnunciateHelpers::LAMB_CLASS_AWARE.call(_item)
+                   @alias.push EnunciateHelpers::LAMB_CLASS_AWARE.call(_item)
                  end
                }
             else
-                @picture = _oa
+                @alias = _oa
             end
           end
         if !_o['name'].nil?
@@ -174,42 +193,23 @@ module Model
                 @name = _oa
             end
           end
-        if !_o['id'].nil?
-          _oa = _o['id']
+        if !_o['picture'].nil?
+          _oa = _o['picture']
             if(_oa.is_a? Hash)
-              @id = EnunciateHelpers::LAMB_CLASS_AWARE.call(_oa) if _oa['@class']
-              @id =  String.from_json(_oa) unless _oa['@class']
+              @picture = EnunciateHelpers::LAMB_CLASS_AWARE.call(_oa) if _oa['@class']
+              @picture =  String.from_json(_oa) unless _oa['@class']
             elsif (_oa.is_a? Array)
               #an array(of hashes hopefully) or scalar
-              @id = Array.new
+              @picture = Array.new
               _oa.each { | _item | 
                  if ((_item.nil? || _item['@class'].nil?)rescue true)
-                   @id.push String.from_json(_item)
+                   @picture.push String.from_json(_item)
                  else
-                   @id.push EnunciateHelpers::LAMB_CLASS_AWARE.call(_item)
+                   @picture.push EnunciateHelpers::LAMB_CLASS_AWARE.call(_item)
                  end
                }
             else
-                @id = _oa
-            end
-          end
-        if !_o['alias'].nil?
-          _oa = _o['alias']
-            if(_oa.is_a? Hash)
-              @alias = EnunciateHelpers::LAMB_CLASS_AWARE.call(_oa) if _oa['@class']
-              @alias =  String.from_json(_oa) unless _oa['@class']
-            elsif (_oa.is_a? Array)
-              #an array(of hashes hopefully) or scalar
-              @alias = Array.new
-              _oa.each { | _item | 
-                 if ((_item.nil? || _item['@class'].nil?)rescue true)
-                   @alias.push String.from_json(_item)
-                 else
-                   @alias.push EnunciateHelpers::LAMB_CLASS_AWARE.call(_item)
-                 end
-               }
-            else
-                @alias = _oa
+                @picture = _oa
             end
           end
     end
@@ -250,20 +250,17 @@ module Model
   class Name 
 
     # (no documentation provided)
-    attr_accessor :givenName
-    # (no documentation provided)
-    attr_accessor :full_name
-    # (no documentation provided)
     attr_accessor :fullName
-    # (no documentation provided)
+    # The given name.
+    attr_accessor :givenName
+    # The surname.
     attr_accessor :surname
 
     # the json hash for this Name
     def to_jaxb_json_hash
       _h = {}
-      _h['givenName'] = givenName.to_jaxb_json_hash unless givenName.nil?
-      _h['full_name'] = full_name.to_jaxb_json_hash unless full_name.nil?
       _h['full_name'] = fullName.to_jaxb_json_hash unless fullName.nil?
+      _h['givenName'] = givenName.to_jaxb_json_hash unless givenName.nil?
       _h['surname'] = surname.to_jaxb_json_hash unless surname.nil?
       return _h
     end
@@ -275,44 +272,6 @@ module Model
 
     #initializes this Name with a json hash
     def init_jaxb_json_hash(_o)
-        if !_o['givenName'].nil?
-          _oa = _o['givenName']
-            if(_oa.is_a? Hash)
-              @givenName = EnunciateHelpers::LAMB_CLASS_AWARE.call(_oa) if _oa['@class']
-              @givenName =  String.from_json(_oa) unless _oa['@class']
-            elsif (_oa.is_a? Array)
-              #an array(of hashes hopefully) or scalar
-              @givenName = Array.new
-              _oa.each { | _item | 
-                 if ((_item.nil? || _item['@class'].nil?)rescue true)
-                   @givenName.push String.from_json(_item)
-                 else
-                   @givenName.push EnunciateHelpers::LAMB_CLASS_AWARE.call(_item)
-                 end
-               }
-            else
-                @givenName = _oa
-            end
-          end
-        if !_o['full_name'].nil?
-          _oa = _o['full_name']
-            if(_oa.is_a? Hash)
-              @full_name = EnunciateHelpers::LAMB_CLASS_AWARE.call(_oa) if _oa['@class']
-              @full_name =  String.from_json(_oa) unless _oa['@class']
-            elsif (_oa.is_a? Array)
-              #an array(of hashes hopefully) or scalar
-              @full_name = Array.new
-              _oa.each { | _item | 
-                 if ((_item.nil? || _item['@class'].nil?)rescue true)
-                   @full_name.push String.from_json(_item)
-                 else
-                   @full_name.push EnunciateHelpers::LAMB_CLASS_AWARE.call(_item)
-                 end
-               }
-            else
-                @full_name = _oa
-            end
-          end
         if !_o['full_name'].nil?
           _oa = _o['full_name']
             if(_oa.is_a? Hash)
@@ -330,6 +289,25 @@ module Model
                }
             else
                 @fullName = _oa
+            end
+          end
+        if !_o['givenName'].nil?
+          _oa = _o['givenName']
+            if(_oa.is_a? Hash)
+              @givenName = EnunciateHelpers::LAMB_CLASS_AWARE.call(_oa) if _oa['@class']
+              @givenName =  String.from_json(_oa) unless _oa['@class']
+            elsif (_oa.is_a? Array)
+              #an array(of hashes hopefully) or scalar
+              @givenName = Array.new
+              _oa.each { | _item | 
+                 if ((_item.nil? || _item['@class'].nil?)rescue true)
+                   @givenName.push String.from_json(_item)
+                 else
+                   @givenName.push EnunciateHelpers::LAMB_CLASS_AWARE.call(_item)
+                 end
+               }
+            else
+                @givenName = _oa
             end
           end
         if !_o['surname'].nil?

@@ -14,45 +14,45 @@
       "type" : "object",
       "title" : "Name",
           "properties" : {
+            "full_name" : {
+            "readOnly" : false,
+"description" : "",
+"type" : "string"
+            },
             "givenName" : {
             "readOnly" : false,
-"description" : "",
-"type" : "string"
-            },
-            "full_name" : {
-            "readOnly" : false,
-"description" : "",
-"type" : "string"
-            },
-            "full_name" : {
-            "readOnly" : false,
-"description" : "",
+"description" : "The given name.",
 "type" : "string"
             },
             "surname" : {
             "readOnly" : false,
-"description" : "",
+"description" : "The surname.",
 "type" : "string"
             }
           },
       "example" : {
-  "givenName" : "...",
   "full_name" : "...",
+  "givenName" : "...",
   "surname" : "..."
 },
-      "description" : ""
+      "description" : "A name of a persona."
     }
     ,
     "Person" : {
       "type" : "object",
       "title" : "Person",
           "properties" : {
+            "id" : {
+            "readOnly" : false,
+"description" : "",
+"type" : "string"
+            },
             "email" : {
             "readOnly" : false,
 "description" : "",
 "type" : "string"
             },
-            "picture" : {
+            "alias" : {
             "readOnly" : false,
 "description" : "",
 "type" : "string"
@@ -62,27 +62,22 @@
 "$ref" : "#/definitions/Name",
 "description" : ""
             },
-            "id" : {
-            "readOnly" : false,
-"description" : "",
-"type" : "string"
-            },
-            "alias" : {
+            "picture" : {
             "readOnly" : false,
 "description" : "",
 "type" : "string"
             }
           },
       "example" : {
+  "id" : "...",
   "email" : "...",
-  "picture" : "...",
+  "alias" : "...",
   "name" : {
-    "givenName" : "...",
     "full_name" : "...",
+    "givenName" : "...",
     "surname" : "..."
   },
-  "id" : "...",
-  "alias" : "..."
+  "picture" : "..."
 },
       "description" : ""
     }
@@ -93,22 +88,13 @@
       "allOf" : [
         {
           "properties" : {
-            "fullName" : {
-              "xml" : {
-                "prefix" : "model",
-                "namespace" : ""
-              },
-            "readOnly" : false,
-"description" : "",
-"type" : "string"
-            },
             "givenName" : {
               "xml" : {
                 "prefix" : "model",
                 "namespace" : ""
               },
             "readOnly" : false,
-"description" : "",
+"description" : "The given name.",
 "type" : "string"
             },
             "surname" : {
@@ -117,13 +103,13 @@
                 "namespace" : ""
               },
             "readOnly" : false,
-"description" : "",
+"description" : "The surname.",
 "type" : "string"
             }
           }
         }
       ],
-      "description" : ""
+      "description" : "A name of a persona."
     }
     ,
     "xml_model_person" : {

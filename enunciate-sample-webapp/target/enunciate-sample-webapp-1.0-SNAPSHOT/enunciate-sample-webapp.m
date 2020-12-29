@@ -3,26 +3,26 @@
 #define DEF_ENUNCIATE_SAMPLE_WEBAPPMODELPerson_M
 
 /**
- * (no documentation provided)
+ *  @author Ryan Heaton
  */
 @implementation ENUNCIATE_SAMPLE_WEBAPPMODELPerson
 
 /**
  * (no documentation provided)
  */
-- (ENUNCIATE_SAMPLE_WEBAPPMODELName *) name
+- (NSString *) identifier
 {
-  return _name;
+  return _identifier;
 }
 
 /**
  * (no documentation provided)
  */
-- (void) setName: (ENUNCIATE_SAMPLE_WEBAPPMODELName *) newName
+- (void) setIdentifier: (NSString *) newIdentifier
 {
-  [newName retain];
-  [_name release];
-  _name = newName;
+  [newIdentifier retain];
+  [_identifier release];
+  _identifier = newIdentifier;
 }
 
 /**
@@ -46,24 +46,6 @@
 /**
  * (no documentation provided)
  */
-- (NSString *) identifier
-{
-  return _identifier;
-}
-
-/**
- * (no documentation provided)
- */
-- (void) setIdentifier: (NSString *) newIdentifier
-{
-  [newIdentifier retain];
-  [_identifier release];
-  _identifier = newIdentifier;
-}
-
-/**
- * (no documentation provided)
- */
 - (NSString *) alias
 {
   return _alias;
@@ -77,6 +59,24 @@
   [newAlias retain];
   [_alias release];
   _alias = newAlias;
+}
+
+/**
+ * (no documentation provided)
+ */
+- (ENUNCIATE_SAMPLE_WEBAPPMODELName *) name
+{
+  return _name;
+}
+
+/**
+ * (no documentation provided)
+ */
+- (void) setName: (ENUNCIATE_SAMPLE_WEBAPPMODELName *) newName
+{
+  [newName retain];
+  [_name release];
+  _name = newName;
 }
 
 /**
@@ -99,10 +99,10 @@
 
 - (void) dealloc
 {
-  [self setName: nil];
-  [self setEmail: nil];
   [self setIdentifier: nil];
+  [self setEmail: nil];
   [self setAlias: nil];
+  [self setName: nil];
   [self setPicture: nil];
   [super dealloc];
 }
@@ -370,18 +370,18 @@
     return YES;
   }
   if (xmlTextReaderNodeType(reader) == XML_READER_TYPE_ELEMENT
-    && xmlStrcmp(BAD_CAST "name", xmlTextReaderConstLocalName(reader)) == 0
+    && xmlStrcmp(BAD_CAST "id", xmlTextReaderConstLocalName(reader)) == 0
     && xmlTextReaderConstNamespaceUri(reader) == NULL) {
 
 #if DEBUG_ENUNCIATE > 1
-    NSLog(@"Attempting to read choice {}name of type {http://webcohesion.com/enunciate/samples/model/}name.");
+    NSLog(@"Attempting to read choice {}id of type {http://www.w3.org/2001/XMLSchema}string.");
 #endif
-    __child = [ENUNCIATE_SAMPLE_WEBAPPMODELName readXMLType: reader];
+    __child = [NSString readXMLType: reader];
 #if DEBUG_ENUNCIATE > 1
-    NSLog(@"successfully read choice {}name of type {http://webcohesion.com/enunciate/samples/model/}name.");
+    NSLog(@"successfully read choice {}id of type {http://www.w3.org/2001/XMLSchema}string.");
 #endif
 
-    [self setName: __child];
+    [self setIdentifier: __child];
     return YES;
   } //end "if choice"
 
@@ -402,22 +402,6 @@
   } //end "if choice"
 
   if (xmlTextReaderNodeType(reader) == XML_READER_TYPE_ELEMENT
-    && xmlStrcmp(BAD_CAST "id", xmlTextReaderConstLocalName(reader)) == 0
-    && xmlTextReaderConstNamespaceUri(reader) == NULL) {
-
-#if DEBUG_ENUNCIATE > 1
-    NSLog(@"Attempting to read choice {}id of type {http://www.w3.org/2001/XMLSchema}string.");
-#endif
-    __child = [NSString readXMLType: reader];
-#if DEBUG_ENUNCIATE > 1
-    NSLog(@"successfully read choice {}id of type {http://www.w3.org/2001/XMLSchema}string.");
-#endif
-
-    [self setIdentifier: __child];
-    return YES;
-  } //end "if choice"
-
-  if (xmlTextReaderNodeType(reader) == XML_READER_TYPE_ELEMENT
     && xmlStrcmp(BAD_CAST "alias", xmlTextReaderConstLocalName(reader)) == 0
     && xmlTextReaderConstNamespaceUri(reader) == NULL) {
 
@@ -430,6 +414,22 @@
 #endif
 
     [self setAlias: __child];
+    return YES;
+  } //end "if choice"
+
+  if (xmlTextReaderNodeType(reader) == XML_READER_TYPE_ELEMENT
+    && xmlStrcmp(BAD_CAST "name", xmlTextReaderConstLocalName(reader)) == 0
+    && xmlTextReaderConstNamespaceUri(reader) == NULL) {
+
+#if DEBUG_ENUNCIATE > 1
+    NSLog(@"Attempting to read choice {}name of type {http://webcohesion.com/enunciate/samples/model/}name.");
+#endif
+    __child = [ENUNCIATE_SAMPLE_WEBAPPMODELName readXMLType: reader];
+#if DEBUG_ENUNCIATE > 1
+    NSLog(@"successfully read choice {}name of type {http://webcohesion.com/enunciate/samples/model/}name.");
+#endif
+
+    [self setName: __child];
     return YES;
   } //end "if choice"
 
@@ -494,25 +494,25 @@
 
   [super writeJAXBChildElements: writer];
 
-  if ([self name]) {
-    status = xmlTextWriterStartElementNS(writer, NULL, BAD_CAST "name", NULL);
+  if ([self identifier]) {
+    status = xmlTextWriterStartElementNS(writer, NULL, BAD_CAST "id", NULL);
     if (status < 0) {
       [NSException raise: @"XMLWriteError"
-                   format: @"Error writing start child element {}name."];
+                   format: @"Error writing start child element {}id."];
     }
 
 #if DEBUG_ENUNCIATE > 1
-    NSLog(@"writing element {}name...");
+    NSLog(@"writing element {}id...");
 #endif
-    [[self name] writeXMLType: writer];
+    [[self identifier] writeXMLType: writer];
 #if DEBUG_ENUNCIATE > 1
-    NSLog(@"successfully wrote element {}name...");
+    NSLog(@"successfully wrote element {}id...");
 #endif
 
     status = xmlTextWriterEndElement(writer);
     if (status < 0) {
       [NSException raise: @"XMLWriteError"
-                   format: @"Error writing end child element {}name."];
+                   format: @"Error writing end child element {}id."];
     }
   }
   if ([self email]) {
@@ -536,27 +536,6 @@
                    format: @"Error writing end child element {}email."];
     }
   }
-  if ([self identifier]) {
-    status = xmlTextWriterStartElementNS(writer, NULL, BAD_CAST "id", NULL);
-    if (status < 0) {
-      [NSException raise: @"XMLWriteError"
-                   format: @"Error writing start child element {}id."];
-    }
-
-#if DEBUG_ENUNCIATE > 1
-    NSLog(@"writing element {}id...");
-#endif
-    [[self identifier] writeXMLType: writer];
-#if DEBUG_ENUNCIATE > 1
-    NSLog(@"successfully wrote element {}id...");
-#endif
-
-    status = xmlTextWriterEndElement(writer);
-    if (status < 0) {
-      [NSException raise: @"XMLWriteError"
-                   format: @"Error writing end child element {}id."];
-    }
-  }
   if ([self alias]) {
     status = xmlTextWriterStartElementNS(writer, NULL, BAD_CAST "alias", NULL);
     if (status < 0) {
@@ -576,6 +555,27 @@
     if (status < 0) {
       [NSException raise: @"XMLWriteError"
                    format: @"Error writing end child element {}alias."];
+    }
+  }
+  if ([self name]) {
+    status = xmlTextWriterStartElementNS(writer, NULL, BAD_CAST "name", NULL);
+    if (status < 0) {
+      [NSException raise: @"XMLWriteError"
+                   format: @"Error writing start child element {}name."];
+    }
+
+#if DEBUG_ENUNCIATE > 1
+    NSLog(@"writing element {}name...");
+#endif
+    [[self name] writeXMLType: writer];
+#if DEBUG_ENUNCIATE > 1
+    NSLog(@"successfully wrote element {}name...");
+#endif
+
+    status = xmlTextWriterEndElement(writer);
+    if (status < 0) {
+      [NSException raise: @"XMLWriteError"
+                   format: @"Error writing end child element {}name."];
     }
   }
   if ([self picture]) {
@@ -607,12 +607,14 @@
 #define DEF_ENUNCIATE_SAMPLE_WEBAPPMODELName_M
 
 /**
- * (no documentation provided)
+ *  A name of a persona.
+ * 
+ *  @author Ryan Heaton
  */
 @implementation ENUNCIATE_SAMPLE_WEBAPPMODELName
 
 /**
- * (no documentation provided)
+ * The given name.
  */
 - (NSString *) givenName
 {
@@ -620,7 +622,7 @@
 }
 
 /**
- * (no documentation provided)
+ * The given name.
  */
 - (void) setGivenName: (NSString *) newGivenName
 {
@@ -630,25 +632,7 @@
 }
 
 /**
- * (no documentation provided)
- */
-- (NSString *) fullName
-{
-  return _fullName;
-}
-
-/**
- * (no documentation provided)
- */
-- (void) setFullName: (NSString *) newFullName
-{
-  [newFullName retain];
-  [_fullName release];
-  _fullName = newFullName;
-}
-
-/**
- * (no documentation provided)
+ * The surname.
  */
 - (NSString *) surname
 {
@@ -656,7 +640,7 @@
 }
 
 /**
- * (no documentation provided)
+ * The surname.
  */
 - (void) setSurname: (NSString *) newSurname
 {
@@ -668,7 +652,6 @@
 - (void) dealloc
 {
   [self setGivenName: nil];
-  [self setFullName: nil];
   [self setSurname: nil];
   [super dealloc];
 }
@@ -778,22 +761,6 @@
   } //end "if choice"
 
   if (xmlTextReaderNodeType(reader) == XML_READER_TYPE_ELEMENT
-    && xmlStrcmp(BAD_CAST "fullName", xmlTextReaderConstLocalName(reader)) == 0
-    && xmlTextReaderConstNamespaceUri(reader) == NULL) {
-
-#if DEBUG_ENUNCIATE > 1
-    NSLog(@"Attempting to read choice {}fullName of type {http://www.w3.org/2001/XMLSchema}string.");
-#endif
-    __child = [NSString readXMLType: reader];
-#if DEBUG_ENUNCIATE > 1
-    NSLog(@"successfully read choice {}fullName of type {http://www.w3.org/2001/XMLSchema}string.");
-#endif
-
-    [self setFullName: __child];
-    return YES;
-  } //end "if choice"
-
-  if (xmlTextReaderNodeType(reader) == XML_READER_TYPE_ELEMENT
     && xmlStrcmp(BAD_CAST "surname", xmlTextReaderConstLocalName(reader)) == 0
     && xmlTextReaderConstNamespaceUri(reader) == NULL) {
 
@@ -873,27 +840,6 @@
     if (status < 0) {
       [NSException raise: @"XMLWriteError"
                    format: @"Error writing end child element {}givenName."];
-    }
-  }
-  if ([self fullName]) {
-    status = xmlTextWriterStartElementNS(writer, NULL, BAD_CAST "fullName", NULL);
-    if (status < 0) {
-      [NSException raise: @"XMLWriteError"
-                   format: @"Error writing start child element {}fullName."];
-    }
-
-#if DEBUG_ENUNCIATE > 1
-    NSLog(@"writing element {}fullName...");
-#endif
-    [[self fullName] writeXMLType: writer];
-#if DEBUG_ENUNCIATE > 1
-    NSLog(@"successfully wrote element {}fullName...");
-#endif
-
-    status = xmlTextWriterEndElement(writer);
-    if (status < 0) {
-      [NSException raise: @"XMLWriteError"
-                   format: @"Error writing end child element {}fullName."];
     }
   }
   if ([self surname]) {
