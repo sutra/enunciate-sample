@@ -16,15 +16,23 @@
 
 package com.webcohesion.enunciate.sample.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import lombok.Data;
+
 /**
  * A name of a persona.
  *
  * @author Ryan Heaton
  */
+@Data
 public class Name {
 
   private String givenName;
   private String surname;
+
+  @JsonProperty("full_name")
+  private String fullName;
 
   /**
    * The given name.
