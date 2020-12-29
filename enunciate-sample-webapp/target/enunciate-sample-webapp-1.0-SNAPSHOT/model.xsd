@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema version="1.0" targetNamespace="http://webcohesion.com/enunciate/samples/model/"
+  xmlns:model="http://webcohesion.com/enunciate/samples/model/"
+  
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="person" type="model:person"/>
+<xs:complexType name="name">
+       <xs:sequence>
+              <xs:element name="givenName" type="xs:string" minOccurs="0">
+              </xs:element>
+              <xs:element name="fullName" type="xs:string" minOccurs="0">
+              </xs:element>
+              <xs:element name="surname" type="xs:string" minOccurs="0">
+              </xs:element>
+      </xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="person">
+       <xs:sequence>
+              <xs:element name="name" type="model:name" minOccurs="0">
+              </xs:element>
+              <xs:element name="email" type="xs:string" minOccurs="0">
+              </xs:element>
+              <xs:element name="id" type="xs:string" minOccurs="0">
+              </xs:element>
+              <xs:element name="alias" type="xs:string" minOccurs="0">
+              </xs:element>
+              <xs:element name="picture" type="xs:base64Binary" minOccurs="0">
+              </xs:element>
+      </xs:sequence>
+</xs:complexType>
+
+</xs:schema>

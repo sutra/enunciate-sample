@@ -1,0 +1,193 @@
+{
+  "swagger": "2.0",
+  "info" : {
+    "description" : "<h1>Welcome<\/h1>\n\n<p>You've reached the developer documentation for the Enunciate Sample Web Application!<\/p>",
+    "version" : "1.0-SNAPSHOT",
+    "title" : "Enunciate Sample Web Application"
+  },
+  "basePath" : "/enunciate-sample-webapp",
+  "schemes" : [],
+  "tags" : [
+  ],
+  "definitions" : {
+    "Name" : {
+      "type" : "object",
+      "title" : "Name",
+          "properties" : {
+            "givenName" : {
+            "readOnly" : false,
+"description" : "",
+"type" : "string"
+            },
+            "full_name" : {
+            "readOnly" : false,
+"description" : "",
+"type" : "string"
+            },
+            "full_name" : {
+            "readOnly" : false,
+"description" : "",
+"type" : "string"
+            },
+            "surname" : {
+            "readOnly" : false,
+"description" : "",
+"type" : "string"
+            }
+          },
+      "example" : {
+  "givenName" : "...",
+  "full_name" : "...",
+  "surname" : "..."
+},
+      "description" : ""
+    }
+    ,
+    "Person" : {
+      "type" : "object",
+      "title" : "Person",
+          "properties" : {
+            "email" : {
+            "readOnly" : false,
+"description" : "",
+"type" : "string"
+            },
+            "picture" : {
+            "readOnly" : false,
+"description" : "",
+"type" : "string"
+            },
+            "name" : {
+            "readOnly" : false,
+"$ref" : "#/definitions/Name",
+"description" : ""
+            },
+            "id" : {
+            "readOnly" : false,
+"description" : "",
+"type" : "string"
+            },
+            "alias" : {
+            "readOnly" : false,
+"description" : "",
+"type" : "string"
+            }
+          },
+      "example" : {
+  "email" : "...",
+  "picture" : "...",
+  "name" : {
+    "givenName" : "...",
+    "full_name" : "...",
+    "surname" : "..."
+  },
+  "id" : "...",
+  "alias" : "..."
+},
+      "description" : ""
+    }
+    ,
+    "xml_model_name" : {
+      "type" : "object",
+      "title" : "name",
+      "allOf" : [
+        {
+          "properties" : {
+            "fullName" : {
+              "xml" : {
+                "prefix" : "model",
+                "namespace" : ""
+              },
+            "readOnly" : false,
+"description" : "",
+"type" : "string"
+            },
+            "givenName" : {
+              "xml" : {
+                "prefix" : "model",
+                "namespace" : ""
+              },
+            "readOnly" : false,
+"description" : "",
+"type" : "string"
+            },
+            "surname" : {
+              "xml" : {
+                "prefix" : "model",
+                "namespace" : ""
+              },
+            "readOnly" : false,
+"description" : "",
+"type" : "string"
+            }
+          }
+        }
+      ],
+      "description" : ""
+    }
+    ,
+    "xml_model_person" : {
+      "type" : "object",
+      "xml" : {
+        "name" : "person",
+        "prefix" : "model",
+        "namespace" : "http://webcohesion.com/enunciate/samples/model/"
+      },
+      "title" : "person",
+      "allOf" : [
+        {
+          "properties" : {
+            "alias" : {
+              "xml" : {
+                "prefix" : "model",
+                "namespace" : ""
+              },
+            "readOnly" : false,
+"description" : "",
+"type" : "string"
+            },
+            "email" : {
+              "xml" : {
+                "prefix" : "model",
+                "namespace" : ""
+              },
+            "readOnly" : false,
+"description" : "",
+"type" : "string"
+            },
+            "id" : {
+              "xml" : {
+                "prefix" : "model",
+                "namespace" : ""
+              },
+            "readOnly" : false,
+"description" : "",
+"type" : "string"
+            },
+            "name" : {
+              "xml" : {
+                "prefix" : "model",
+                "namespace" : ""
+              },
+            "readOnly" : false,
+"$ref" : "#/definitions/xml_model_name",
+"description" : ""
+            },
+            "picture" : {
+              "xml" : {
+                "prefix" : "model",
+                "namespace" : ""
+              },
+            "readOnly" : false,
+"description" : "",
+"type" : "string"
+            }
+          }
+        }
+      ],
+      "description" : ""
+    }
+  },
+  "paths": {
+  }
+}
